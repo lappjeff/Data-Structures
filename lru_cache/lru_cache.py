@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class LRUCache:
   """
   Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,9 @@ class LRUCache:
   to every node stored in the cache.
   """
   def __init__(self, limit=10):
-    pass
+    self.limit = limit
+    self.cache = {}
+    self.storage = DoublyLinkedList()
 
   """
   Retrieves the value associated with the given key. Also
@@ -17,7 +21,18 @@ class LRUCache:
   key-value pair doesn't exist in the cache.
   """
   def get(self, key):
-    pass
+    #get key from cache
+    node = None
+    if key in self.cache:
+        node = self.cache[key]
+    else:
+        return None
+    #move node from cache to beginning of DLL queue
+    self.storage.delete(node)
+    self.storage.add_to_head(node.value, key)
+    #return fetched key's value
+    return node.value
+    #return None if it doesn't exist
 
   """
   Adds the given key-value pair to the cache. The newly-
@@ -30,4 +45,33 @@ class LRUCache:
   the newly-specified value.
   """
   def set(self, key, value):
-    pass
+    #if key is already in cache, update it
+    if key in self.cache:
+        #move node to beginning of list
+        self.storage.add_to_head(value, key)
+        #save node to add to cache
+        node = self.storage.head
+        #change cache value to new value
+        self.cache[key] = node
+    #if cache length is maxed, add new item to head and remove oldest value from tail
+    elif len(self.cache) == self.limit:
+        #add item to beginning of queue
+        self.storage.add_to_head(value, key)
+        #save node to add to cache
+        node = self.storage.head
+        #set in cache
+        self.cache[key] = node
+        #remove tail node key from cache
+        item_to_remove = self.storage.tail
+
+        del self.cache[item_to_remove.key]
+        #remove tail
+        self.storage.remove_from_tail()
+    #else simply add item
+    else:
+        #add item to beginning of queue
+        self.storage.add_to_head(value, key)
+        #save node to add to cache
+        node = self.storage.head
+        #add item to cache
+        self.cache[key] = node

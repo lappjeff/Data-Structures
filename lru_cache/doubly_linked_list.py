@@ -1,10 +1,11 @@
 """Each ListNode holds a reference to its previous node
 as well as its next node in the List."""
 class ListNode:
-  def __init__(self, value, prev=None, next=None):
+  def __init__(self, value, key = None, prev=None, next=None):
     self.value = value
     self.prev = prev
     self.next = next
+    self.key = key
 
   def __str__(self):
       return f"Value: {self.value} \n"
@@ -52,8 +53,8 @@ class DoublyLinkedList:
   """Wraps the given value in a ListNode and inserts it
   as the new head of the list. Don't forget to handle
   the old head node's previous pointer accordingly."""
-  def add_to_head(self, value):
-    new_node = ListNode(value, None, None)
+  def add_to_head(self, value, key = None):
+    new_node = ListNode(value, key, None, None)
     if not self.head and not self.tail:
       self.head = new_node
       self.tail = new_node
@@ -61,6 +62,7 @@ class DoublyLinkedList:
       new_node.next = self.head
       self.head.prev = new_node
       self.head = new_node
+
     self.length += 1
 
   """Removes the List's current head node, making the

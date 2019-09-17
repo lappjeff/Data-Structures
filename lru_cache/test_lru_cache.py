@@ -1,5 +1,5 @@
 import unittest
-from lru_cache import LRUCache 
+from lru_cache import LRUCache
 
 class CacheTests(unittest.TestCase):
   def setUp(self):
