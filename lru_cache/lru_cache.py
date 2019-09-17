@@ -32,7 +32,6 @@ class LRUCache:
     self.storage.add_to_head(node.value, key)
     #return fetched key's value
     return node.value
-    #return None if it doesn't exist
 
   """
   Adds the given key-value pair to the cache. The newly-
