@@ -45,16 +45,19 @@ class LRUCache:
   the newly-specified value.
   """
   def set(self, key, value):
+    #if key is already in cache, update it
     if key in self.cache:
         #move node to beginning of list
         self.storage.add_to_head(value, key)
+        #save node to add to cache
         node = self.storage.head
         #change cache value to new value
         self.cache[key] = node
+    #if cache length is maxed, add new item to head and remove oldest value from tail
     elif len(self.cache) == self.limit:
         #add item to beginning of queue
         self.storage.add_to_head(value, key)
-
+        #save node to add to cache
         node = self.storage.head
         #set in cache
         self.cache[key] = node
@@ -64,9 +67,11 @@ class LRUCache:
         del self.cache[item_to_remove.key]
         #remove tail
         self.storage.remove_from_tail()
+    #else simply add item
     else:
         #add item to beginning of queue
         self.storage.add_to_head(value, key)
+        #save node to add to cache
         node = self.storage.head
         #add item to cache
         self.cache[key] = node
