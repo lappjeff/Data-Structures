@@ -20,10 +20,8 @@ class BinarySearchTree:
 
 
       def contains(self, target):
-
           if self.value == target:
               return True
-
           if target > self.value and self.right is not None:
               return self.right.contains(target)
           elif target <= self.value and self.left is not None:
@@ -33,10 +31,26 @@ class BinarySearchTree:
 
 
       def get_max(self):
-
+        #simply goes to far right node and returns value
         if self.right == None:
             return self.value
         else:
             return self.right.get_max()
 
       def for_each(self, cb):
+          #calling callback on value
+          cb(self.value)
+
+          #base case
+          if not self.left and not self.right:
+              return
+          #if node has a left and a right recursively go through them
+          elif self.left and self.right:
+              self.left.for_each(cb)
+              self.right.for_each(cb)
+          #if just a left node recursively call through it
+          elif self.left:
+              self.left.for_each(cb)
+          #if just a right node recursively call through it
+          elif self.right:
+              self.right.for_each(cb)
