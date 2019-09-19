@@ -38,19 +38,9 @@ class BinarySearchTree:
             return self.right.get_max()
 
       def for_each(self, cb):
-          #calling callback on value
           cb(self.value)
 
-          #base case
-          if not self.left and not self.right:
-              return
-          #if node has a left and a right recursively go through them
-          elif self.left and self.right:
+          if self.left:
               self.left.for_each(cb)
-              self.right.for_each(cb)
-          #if just a left node recursively call through it
-          elif self.left:
-              self.left.for_each(cb)
-          #if just a right node recursively call through it
-          elif self.right:
+          if self.right:
               self.right.for_each(cb)
