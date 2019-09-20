@@ -49,10 +49,42 @@ class BinarySearchTree:
               self.left.for_each(cb)
           if self.right:
               self.right.for_each(cb)
+
       # Print all the values in order from low to high
       # Hint:  Use a recursive, depth first traversal
-      def in_order_print(self):
-          pass
+      def in_order_print(self, node):
+
+          if not node.left:
+              print(node.value)
+
+          if node.left and node.right:
+              node.in_order_print(node.left)
+              print(node.value)
+              node.in_order_print(node.right)
+          elif node.left:
+              node.in_order_print(node.left)
+              print(node.value)
+          elif node.right:
+              node.in_order_print(node.right)
+              print(node.value)
+
+
+      # Print the value of every node, starting with the given node,
+      # in an iterative depth first traversal
+      def dft_print(self, node):
+          stack = Stack()
+          stack.push(self)
+
+          current_node = self
+
+          while stack.len() > 0:
+
+              current_node = stack.pop()
+              print(current_node.value)
+              if current_node.left:
+                  stack.push(current_node.left)
+              if current_node.right:
+                  stack.push(current_node.right)
 
       # Print the value of every node, starting with the given node,
       # in an iterative breadth first traversal
@@ -73,22 +105,6 @@ class BinarySearchTree:
 
               print(current_node.value)
 
-      # Print the value of every node, starting with the given node,
-      # in an iterative depth first traversal
-      def dft_print(self, node):
-          stack = Stack()
-          stack.push(self)
-
-          current_node = self
-
-          while stack.len() > 0:
-
-              current_node = stack.pop()
-              print(current_node.value)
-              if current_node.left:
-                  stack.push(current_node.left)
-              if current_node.right:
-                  stack.push(current_node.right)
 
       def pre_order_dft(self, node):
           pass
