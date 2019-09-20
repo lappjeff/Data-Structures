@@ -6,6 +6,9 @@ class ListNode:
     self.prev = prev
     self.next = next
 
+  def __str__(self):
+      return f"Value: {self.value} \n"
+
   """Wrap the given value in a ListNode and insert it
   after this node. Note that this node could already
   have a next node it is point to."""
@@ -42,6 +45,10 @@ class DoublyLinkedList:
   def __len__(self):
     return self.length
 
+
+  def __str__(self):
+    return f"Head: {self.head}"
+
   """Wraps the given value in a ListNode and inserts it
   as the new head of the list. Don't forget to handle
   the old head node's previous pointer accordingly."""
@@ -60,6 +67,7 @@ class DoublyLinkedList:
   current head's next node the new head of the List.
   Returns the value of the removed Node."""
   def remove_from_head(self):
+
     value = self.head.value
     self.delete(self.head)
     return value
